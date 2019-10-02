@@ -62,7 +62,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button refreshbtn = findViewById(R.id.refreshbtn);
 
+        refreshbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String webUrl = myWebView.getUrl();
+                myWebView.loadUrl(webUrl);
+            }
+        });
     }
 
     @Override
