@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        WebView myWebView = (WebView) findViewById(R.id.webview);
+        final WebView myWebView = (WebView) findViewById(R.id.webview);
         myWebView.setWebViewClient(new WebViewClient());
 
 
@@ -36,8 +36,29 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText urlView = findViewById(R.id.editUrl);
                 String url = urlView.getText().toString();
-                WebView webView = findViewById(R.id.webview);
-                webView.loadUrl(url);
+                myWebView.loadUrl(url);
+            }
+        });
+
+        Button backbtn = findViewById(R.id.backbtn);
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (myWebView.canGoBack()) {
+                    myWebView.goBack();
+                }
+            }
+        });
+
+        Button forwardbtn = findViewById(R.id.forwardbtn);
+
+        forwardbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (myWebView.canGoForward()) {
+                    myWebView.goForward();
+                }
             }
         });
 
