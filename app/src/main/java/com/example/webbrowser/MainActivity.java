@@ -1,5 +1,8 @@
 package com.example.webbrowser;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,6 +17,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.URLUtil;
+import android.webkit.WebBackForwardList;
+import android.webkit.WebHistoryItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -21,6 +26,7 @@ import android.widget.EditText;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//        ArrayList<HistoryItem> historyItems = new ArrayList<HistoryItem>();
+//        historyItems.add(new HistoryItem("example.com"));
+//        historyItems.add(new HistoryItem("example2.com"));
+//        historyItems.add(new HistoryItem("example3.com"));
+//
+//        Bundle b = new Bundle();
+//        Intent i = new Intent();
+//
+//        i.putExtras(b);
 
 
     }
@@ -136,8 +151,24 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.historyMenuOption) {
+            Log.d("sanjay", "History menu activated");
+            WebView webView = this.findViewById(R.id.webview);
+            getBackForwardList(webView);
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getBackForwardList(WebView webView){
+        WebBackForwardList currentList = webView.copyBackForwardList();
+        int currentSize = currentList.getSize();
+        for(int i = 0; i < currentSize; ++i)
+        {
+            WebHistoryItem item = currentList.getItemAtIndex(i);
+            String url = item.getUrl();
+            Log.d("sanjay", "The URL at index: " + Integer.toString(i) + " is " + url );
+        }
     }
 }
