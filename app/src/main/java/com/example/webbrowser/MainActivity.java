@@ -24,6 +24,8 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
+    // TODO: 2019-10-03 Create progress bar for web loading
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
