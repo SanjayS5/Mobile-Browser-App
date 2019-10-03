@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void checkUrl (String url, WebView myWebView) {
         if (url.contains(" ") || (!url.contains("."))) {
             myWebView.loadUrl("https://www.google.com/search?q=" + url);
@@ -102,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    // Code below is from https://stackoverflow.com/questions/4905075/how-to-check-if-url-is-valid-in-android
 
     private boolean isValid(String urlString) {
         try {
