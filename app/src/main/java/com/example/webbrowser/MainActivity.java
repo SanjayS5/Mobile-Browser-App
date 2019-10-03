@@ -8,13 +8,19 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.URLUtil;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText urlView = findViewById(R.id.editUrl);
                 String url = urlView.getText().toString();
-                myWebView.loadUrl(url);
+
+                checkUrl(url, myWebView);
+
+//                myWebView.loadUrl(url);
             }
         });
 
@@ -71,6 +80,38 @@ public class MainActivity extends AppCompatActivity {
                 myWebView.loadUrl(webUrl);
             }
         });
+
+
+
+    }
+
+    public void checkUrl (String url, WebView myWebView) {
+        if (url.contains(" ") || (!url.contains("."))) {
+            myWebView.loadUrl("https://www.google.com/search?q=" + url);
+        } else {
+            boolean result = isValid(url);
+            if (result != true) {
+                try {
+                    url = "http://" + url;
+                    myWebView.loadUrl(url);
+                } catch (Exception e) {
+                    myWebView.loadUrl("https://www.google.com/search?q=" + url);
+                }
+            } else {
+                myWebView.loadUrl(url);
+            }
+        }
+    }
+
+    private boolean isValid(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            return URLUtil.isValidUrl(urlString) && Patterns.WEB_URL.matcher(urlString).matches();
+        } catch (MalformedURLException e) {
+
+        }
+
+        return false;
     }
 
     @Override
