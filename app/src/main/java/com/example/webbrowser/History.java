@@ -1,6 +1,8 @@
 package com.example.webbrowser;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,31 +15,32 @@ import java.util.List;
 
 public class History extends AppCompatActivity {
 
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-//        Intent intent = getIntent();
-//        Serializable wbfl = intent.getSerializableExtra(MainActivity.EXTRA_WBFL);
-
         Intent intent = this.getIntent();
 
         ArrayList<String> urlList = intent.getStringArrayListExtra(MainActivity.EXTRA_URL);
 
-        for (String a : urlList) {
-            Log.d("sanjay", "URL is " + a);
-        }
-
-
-
-
-//        List<WebBackForwardList> wbflObjects = new ArrayList<WebBackForwardList>();
-//        for (String key : bundle.keySet()) {
-//            Log.d("sanjay", (String) bundle.getSerializable(key));
-//            wbflObjects.add((WebBackForwardList)bundle.getSerializable(key));
+//        for (String a : urlList) {
+//            Log.d("sanjay", "URL is " + a);
 //        }
 
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new HistoryAdapter(urlList);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 }

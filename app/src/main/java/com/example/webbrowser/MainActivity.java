@@ -182,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
     public void openHistory(ArrayList<String> urlList) {
         Intent intent = new Intent(this, History.class);
         intent.putStringArrayListExtra(EXTRA_URL, urlList);
-//        intent.putExtras(EXTRA_URL, urlList);
         startActivity(intent);
     }
 }
