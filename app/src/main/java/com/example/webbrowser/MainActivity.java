@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
         WebView webView = this.findViewById(R.id.webview);
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
         } else if (id == R.id.historyMenuOption) {
             Log.d("sanjay", "History menu activated");
