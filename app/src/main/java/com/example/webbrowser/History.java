@@ -30,10 +30,6 @@ public class History extends AppCompatActivity {
 
         ArrayList<String> urlList = intent.getStringArrayListExtra(MainActivity.EXTRA_URL);
 
-//        for (String a : urlList) {
-//            Log.d("sanjay", "URL is " + a);
-//        }
-
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
