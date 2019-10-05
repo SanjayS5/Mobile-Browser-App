@@ -16,7 +16,7 @@ import java.util.List;
 public class History extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private HistoryAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -28,7 +28,7 @@ public class History extends AppCompatActivity {
 
         Intent intent = this.getIntent();
 
-        ArrayList<String> urlList = intent.getStringArrayListExtra(MainActivity.EXTRA_URL);
+        final ArrayList<String> urlList = intent.getStringArrayListExtra(MainActivity.EXTRA_URL);
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -37,6 +37,14 @@ public class History extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new HistoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String url = urlList.get(position);
+                
+            }
+        });
 
     }
 }

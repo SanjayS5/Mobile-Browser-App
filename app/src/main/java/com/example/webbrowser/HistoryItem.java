@@ -10,4 +10,5 @@ public class HistoryItem {
     public String getUrl() {
         return url;
     }
+
 }

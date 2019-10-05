@@ -12,13 +12,35 @@ import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
     private ArrayList<String> mHistoryList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void  setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
     public static class HistoryViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTextView1;
 
-        public HistoryViewHolder(@NonNull View itemView) {
+        public HistoryViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             mTextView1 = itemView.findViewById(R.id.textView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -31,7 +53,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     @Override
     public HistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
-        HistoryViewHolder hvh = new HistoryViewHolder(v);
+        HistoryViewHolder hvh = new HistoryViewHolder(v, mListener);
         return hvh;
     }
 
