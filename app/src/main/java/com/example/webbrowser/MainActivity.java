@@ -172,12 +172,17 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.addBookmark) {
             String currentUrl = webView.getUrl();
             bookmarkList.add(currentUrl);
-            for (String a : bookmarkList) {
-                Log.d("sanjay", "Bookmark saved " + a);
-            }
+        } else if (id == R.id.bookmarks) {
+            openBookmarks(bookmarkList);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openBookmarks(ArrayList<String> bookmarkList) {
+        Intent intent = new Intent(this, History.class);
+        intent.putStringArrayListExtra(EXTRA_URL, bookmarkList);
+        startActivity(intent);
     }
 
     public ArrayList<String> getBackForwardList(WebView webView){
