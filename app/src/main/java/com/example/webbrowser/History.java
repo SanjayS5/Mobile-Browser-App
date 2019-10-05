@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +43,9 @@ public class History extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 String url = urlList.get(position);
-                
+                Intent intent = new Intent(History.this, MainActivity.class);
+                intent.putExtra("url", url);
+                startActivity(intent);
             }
         });
 

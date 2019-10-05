@@ -39,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         final WebView myWebView = (WebView) findViewById(R.id.webview);
         myWebView.setWebViewClient(new WebViewClient());
 
+        Intent intent = getIntent();
+        String key = intent.getStringExtra("url");
+        if (key != null) {
+            myWebView.loadUrl(key);
+        } else {
+            myWebView.loadUrl("https://google.com");
+        }
+
 
         Button btn = findViewById(R.id.go);
 
