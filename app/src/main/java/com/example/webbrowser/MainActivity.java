@@ -1,11 +1,13 @@
 package com.example.webbrowser;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.webkit.URLUtil;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebHistoryItem;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -206,5 +209,20 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, History.class);
         intent.putStringArrayListExtra(EXTRA_URL, urlList);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d("sanjay", "On RESUME called");
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Boolean toggleJS = sharedPreferences.getBoolean("switch_preference_1", false);
+        WebView myWebView = (WebView) findViewById(R.id.webview);
+
+        WebSettings webSettings = myWebView.getSettings();
+        webSettings.setJavaScriptEnabled(toggleJS);
+
     }
 }
