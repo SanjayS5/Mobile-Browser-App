@@ -2,4 +2,6 @@
     <string name="app_name">Web Browser</string>
     <string name="action_settings">Settings</string>
     <string name="history">History</string>
+    <string name="addBookmark">Add Bookmark</string>
+    <string name="bookmarks">Bookmarks</string>
 </resources>

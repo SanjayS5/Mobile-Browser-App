@@ -27,6 +27,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_URL = "com.example.webbrowser.EXTRA_URL";
+
+    public ArrayList<String> bookmarkList = new ArrayList<String>();
+
     // TODO: 2019-10-03 Create progress bar for web loading
 
     @Override
@@ -152,13 +155,13 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        WebView webView = this.findViewById(R.id.webview);
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.historyMenuOption) {
             Log.d("sanjay", "History menu activated");
-            WebView webView = this.findViewById(R.id.webview);
+
             ArrayList<String> urlList = getBackForwardList(webView);
 
 //            Intent intent = new Intent(this, History);
@@ -166,6 +169,12 @@ public class MainActivity extends AppCompatActivity {
 
             openHistory(urlList);
 
+        } else if (id == R.id.addBookmark) {
+            String currentUrl = webView.getUrl();
+            bookmarkList.add(currentUrl);
+            for (String a : bookmarkList) {
+                Log.d("sanjay", "Bookmark saved " + a);
+            }
         }
 
         return super.onOptionsItemSelected(item);

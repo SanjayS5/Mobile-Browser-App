@@ -11,4 +11,10 @@
         android:id="@+id/historyMenuOption"
         android:orderInCategory="101"
         android:title="@string/history" />
+    <item
+        android:id="@+id/addBookmark"
+        android:title="@string/addBookmark" />
+    <item
+        android:id="@+id/bookmarks"
+        android:title="@string/bookmarks" />
 </menu>
