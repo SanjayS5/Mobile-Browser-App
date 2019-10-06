@@ -26,12 +26,15 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_URL = "com.example.webbrowser.EXTRA_URL";
 
     public ArrayList<String> bookmarkList = new ArrayList<String>();
+    public ArrayList<String> urls = new ArrayList<String>();
 
     // TODO: 2019-10-03 Create progress bar for web loading
 
@@ -192,8 +195,6 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> getBackForwardList(WebView webView){
         WebBackForwardList currentList = webView.copyBackForwardList();
 
-        ArrayList<String> urls = new ArrayList<String>();
-
         int currentSize = currentList.getSize();
         for(int i = 0; i < currentSize; ++i) {
             WebHistoryItem item = currentList.getItemAtIndex(i);
@@ -224,5 +225,52 @@ public class MainActivity extends AppCompatActivity {
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(toggleJS);
 
+
+        //TODO
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("Test", 0);
+        Set bookmarksSet = pref.getStringSet("bookmarks", null);
+        Set historySet = pref.getStringSet("history", null);
+
+        if (bookmarksSet != null) {
+            ArrayList list = new ArrayList(bookmarksSet);
+
+            bookmarkList = list;
+        }
+//
+        if (historySet != null) {
+            ArrayList list2 = new ArrayList(historySet);
+
+            urls = list2;
+//            Log.d(TAG, "historySet not null");
+        }
+
+//        Log.d(TAG, "onResume: On Resume Complete Complete Complete");
+
+
     }
+
+    public void onStop() {
+        super.onStop();
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("Test", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        WebView myWebView = findViewById(R.id.webview);
+
+        getBackForwardList(myWebView);
+
+        String currentPage = myWebView.getUrl();
+
+        Set<String> bookmarksSet = new HashSet<String>(bookmarkList);
+        Set<String> historySet = new HashSet<String>(urls);
+        editor.putStringSet("bookmarks", bookmarksSet);
+        editor.putStringSet("history", historySet);
+        editor.putString("currentPage", currentPage);
+        editor.commit();
+
+        Log.d("sanjay", "onStopComplete");
+    }
+
+
 }
+
+
