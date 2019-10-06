@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> bookmarkList = new ArrayList<String>();
     public ArrayList<String> urls = new ArrayList<String>();
 
-    // TODO: 2019-10-03 Create progress bar for web loading
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 String url = urlView.getText().toString();
 
                 checkUrl(url, myWebView);
-
-//                myWebView.loadUrl(url);
             }
         });
 
@@ -102,17 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 myWebView.loadUrl(webUrl);
             }
         });
-
-//        ArrayList<HistoryItem> historyItems = new ArrayList<HistoryItem>();
-//        historyItems.add(new HistoryItem("example.com"));
-//        historyItems.add(new HistoryItem("example2.com"));
-//        historyItems.add(new HistoryItem("example3.com"));
-//
-//        Bundle b = new Bundle();
-//        Intent i = new Intent();
-//
-//        i.putExtras(b);
-
 
     }
 
@@ -225,29 +210,18 @@ public class MainActivity extends AppCompatActivity {
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(toggleJS);
 
-
-        //TODO
-
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Test", 0);
         Set bookmarksSet = pref.getStringSet("bookmarks", null);
         Set historySet = pref.getStringSet("history", null);
 
         if (bookmarksSet != null) {
             ArrayList list = new ArrayList(bookmarksSet);
-
             bookmarkList = list;
         }
-//
         if (historySet != null) {
             ArrayList list2 = new ArrayList(historySet);
-
             urls = list2;
-//            Log.d(TAG, "historySet not null");
         }
-
-//        Log.d(TAG, "onResume: On Resume Complete Complete Complete");
-
-
     }
 
     public void onStop() {
@@ -255,22 +229,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Test", 0);
         SharedPreferences.Editor editor = pref.edit();
         WebView myWebView = findViewById(R.id.webview);
-
         getBackForwardList(myWebView);
-
         String currentPage = myWebView.getUrl();
-
         Set<String> bookmarksSet = new HashSet<String>(bookmarkList);
         Set<String> historySet = new HashSet<String>(urls);
         editor.putStringSet("bookmarks", bookmarksSet);
         editor.putStringSet("history", historySet);
         editor.putString("currentPage", currentPage);
         editor.commit();
-
-        Log.d("sanjay", "onStopComplete");
     }
-
-
 }
 
 
